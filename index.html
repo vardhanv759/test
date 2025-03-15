@@ -6,13 +6,14 @@
     <title>Test Website with Crisp Chat</title>
 </head>
 <body>
-    <h1>Welcome to My Test Website for hotel solutions and Automation</h1>
-    <p>This is a basic webpage to test the Crisp Chat widget.</p>
+    <h1>Welcome to My Test Website for Hotel Solutions and Automation</h1>
+    <p>This is a basic webpage to test the Crisp Chat widget with n8n automation.</p>
 
     <!-- Crisp Chat Widget -->
     <script type="text/javascript">
         window.$crisp = [];
         window.CRISP_WEBSITE_ID = "935423e0-9a61-4ebe-9b3c-86651e4d59cf"; // Replace with your Crisp ID
+
         (function() {
             d = document;
             s = d.createElement("script");
@@ -20,6 +21,39 @@
             s.async = 1;
             d.getElementsByTagName("head")[0].appendChild(s);
         })();
+
+        // Listen for new messages in Crisp Chat
+        function crispListener(message) {
+            console.log("User Message:", message);
+
+            // Send user message to n8n webhook
+            fetch("https://vardhan759.app.n8n.cloud/webhook-test/chatbot", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response from n8n:", data);
+
+                // Send the response from n8n back to Crisp Chat
+                if (data.reply) {
+                    $crisp.push(["do", "message:send", ["text", data.reply]]);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        // Attach the listener to Crisp chat
+        window.CRISP_READY_TRIGGER = function() {
+            $crisp.push(["on", "message:received", function(message) {
+                crispListener(message.content);
+            }]);
+        };
     </script>
 </body>
 </html>
