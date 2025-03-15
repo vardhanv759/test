@@ -10,8 +10,9 @@
     <p>This is a basic webpage to test the Crisp Chat widget.</p>
 
 <script type="text/javascript">
+    setTimeout(function() {
         window.$crisp = [];
-        window.CRISP_WEBSITE_ID = "935423e0-9a61-4ebe-9b3c-86651e4d59cf"; // Replace with your Crisp ID
+        window.CRISP_WEBSITE_ID = "935423e0-9a61-4ebe-9b3c-86651e4d59cf"; // Replace this
         (function() {
             d = document;
             s = d.createElement("script");
@@ -19,7 +20,7 @@
             s.async = 1;
             d.getElementsByTagName("head")[0].appendChild(s);
         })();
-    </script>
+    }, 2000); // Load after 2 seconds
 
 </body>
 </html>
