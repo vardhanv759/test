@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Website with n8n Chatbot</title>
-
-    <!-- n8n Chatbot Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 </head>
 <body>
     <h1>Welcome to My Test Website for Hotel Solutions and Automation</h1>
     <p>This is a basic webpage to test the n8n Chatbot widget.</p>
 
-    <!-- n8n Chatbot -->
-    <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-        createChat({
-            webhookUrl: 'https://vardhan759.app.n8n.cloud/webhook/870aef18-a776-4914-b2ca-de4f712fcb8c/chat' // Replace with your actual n8n Webhook URL
-        });
+    <!-- n8n Chatbot Widget Configuration -->
+    <script>
+        window.ChatWidgetConfig = {
+            webhook: {
+                url: 'https://vardhan759.app.n8n.cloud/webhook/870aef18-a776-4914-b2ca-de4f712fcb8c/chat', // Your n8n Webhook URL
+                route: 'general'
+            },
+            branding: {
+                logo: 'https://www.google.com/search?num=10&sca_esv=4ff095ec055370c4&sxsrf=AHTn8zoCyAjq0KCK3T-r6oQZ45poVKON-w:1742098968702&q=lidos+hotel&udm=2&fbs=ABzOT_CWdhQLP1FcmU5B0fn3xuWpIgVFCTcbZI9VMGzNoV0iOTPryHVyOUisUiQWwjZrW-xk89Qe_1K5AEHBJ0yd2fdHdzNOjOthAa8S1QuIxi9BRd_lvJLkC07w1jWllVo5dHaXyyuORRdb2eq9T-dW-KQ4e8Wsuisyp87VnsFMDocW95LnCivPe1WGTaV2nNrrAjdYrR_FynCCGjCxorTUUgFmypDDPg&sa=X&ved=2ahUKEwjKq8Wx4I2MAxUCTkEAHY-fMEsQtKgLegQICxAB&biw=1463&bih=799&dpr=1.75#vhid=VuMzZcVNvLMdeM&vssid=mosaic', // Replace with your company logo URL
+                name: 'Lidos Hotel', // Your company/hotel name
+                welcomeText: 'Hi 👋, Im Sai, how can we assist you today?', // Welcome message
+                responseTimeText: 'We typically respond right away' // Response time message
+            },
+            style: {
+                primaryColor: '#0066ff', // Primary color
+                secondaryColor: '#0044cc', // Secondary color
+                position: 'right', // Position of the widget (left or right)
+                backgroundColor: '#ffffff', // Background color of the chat widget
+                fontColor: '#333333' // Text color for messages and interface
+            }
+        };
     </script>
 
+    <!-- Load n8n Chatbot Widget -->
+    <script src="https://cdn.jsdelivr.net/gh/WayneSimpson/n8n-chatbot-template@ba944c3/chat-widget.js"></script>
 </body>
 </html>
