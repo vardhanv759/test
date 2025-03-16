@@ -3,65 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Website with Crisp Chat</title>
+    <title>Test Website with n8n Chatbot</title>
+
+    <!-- n8n Chatbot Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 </head>
 <body>
     <h1>Welcome to My Test Website for Hotel Solutions and Automation</h1>
-    <p>This is a basic webpage to test the Crisp Chat widget with n8n automation.</p>
+    <p>This is a basic webpage to test the n8n Chatbot widget.</p>
 
-    <!-- Crisp Chat Widget -->
-    <script type="text/javascript">
-        window.$crisp = [];
-        window.CRISP_WEBSITE_ID = "935423e0-9a61-4ebe-9b3c-86651e4d59cf"; // Replace with your Crisp ID
+    <!-- n8n Chatbot -->
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-        (function() {
-            d = document;
-            s = d.createElement("script");
-            s.src = "https://client.crisp.chat/l.js";
-            s.async = 1;
-            d.getElementsByTagName("head")[0].appendChild(s);
-        })();
-
-        // Listen for new messages in Crisp Chat
-        function crispListener(message) {
-            console.log("User Message:", message);
-
-            // Send user message to n8n webhook
-            fetch("https://vardhan759.app.n8n.cloud/webhook-test/chatbot", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    message: message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Response from n8n:", data);
-
-                // Send the response from n8n back to Crisp Chat
-                if (data.reply) {
-                    $crisp.push(["do", "message:send", ["text", data.reply]]);
-                }
-            })
-            .catch(error => console.error("Error:", error));
-        }
-
-        // Attach the listener to Crisp chat
-        window.CRISP_READY_TRIGGER = function() {
-            $crisp.push(["on", "message:received", function(message) {
-                crispListener(message.content);
-            }]);
-        };
+        createChat({
+            webhookUrl: 'https://vardhan759.app.n8n.cloud/webhook-test/chatbot' // Replace with your actual n8n Webhook URL
+        });
     </script>
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<script type="module">
-	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-	createChat({
-		webhookUrl: 'https://vardhan759.app.n8n.cloud/webhook/870aef18-a776-4914-b2ca-de4f712fcb8c/chat'
-	});
-</script>
 </body>
 </html>
