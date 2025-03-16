@@ -35,5 +35,18 @@
 
     <!-- Load n8n Chatbot Widget -->
     <script src="https://cdn.jsdelivr.net/gh/WayneSimpson/n8n-chatbot-template@ba944c3/chat-widget.js"></script>
+
+    <!-- Auto Popup Message after Page Load -->
+    <script>
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                if (window.$chatWidget) {
+                    window.$chatWidget.show(); // Opens the chatbot automatically
+                    window.$chatWidget.sendMessage("Feel free to ask any questions! 😊"); // Sends a welcome message
+                }
+            }, 3000); // Delay of 3 seconds
+        });
+    </script>
+    
 </body>
 </html>
