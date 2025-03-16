@@ -4,23 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Website with n8n Chatbot</title>
+    <style>
+        /* Tooltip styling */
+        #chat-tooltip {
+            position: fixed;
+            bottom: 80px; /* Adjust this to position tooltip above the chat widget */
+            right: 20px; /* Same as chatbot position */
+            background-color: #0066ff;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none; /* Initially hidden */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to My Test Website for Hotel Solutions and Automation</h1>
     <p>This is a basic webpage to test the n8n Chatbot widget.</p>
 
+    <!-- Tooltip Pop-up -->
+    <div id="chat-tooltip">💬 Feel free to ask any doubts!</div>
+
     <!-- n8n Chatbot Widget Configuration -->
     <script>
         window.ChatWidgetConfig = {
             webhook: {
-
                 url: 'https://vardhan759.app.n8n.cloud/webhook/8c5511ee-9e86-4472-83ac-5d5eaac007dc/chat', // Your n8n Webhook URL
                 route: 'general'
             },
             branding: {
-                logo: '<your company logo URL>',
-                name: 'LIDOS HOTEL', // Your company name
-                welcomeText: 'Hi 👋, Im Sai, how can we assist you today?', // Welcome message
+                logo: 'https://your-logo-url.com/logo.png', // Replace with your company logo URL
+                name: 'LIDOS HOTEL', // Your company/hotel name
+                welcomeText: 'Hi 👋, how can we assist you today?', // Welcome message
                 responseTimeText: 'We typically respond right away' // Response time message
             },
             style: {
@@ -36,17 +60,20 @@
     <!-- Load n8n Chatbot Widget -->
     <script src="https://cdn.jsdelivr.net/gh/WayneSimpson/n8n-chatbot-template@ba944c3/chat-widget.js"></script>
 
-    <!-- Auto Popup Message after Page Load -->
+    <!-- Auto Popup Message Above Widget -->
     <script>
         window.addEventListener("load", function () {
             setTimeout(function () {
-                if (window.$chatWidget) {
-                    window.$chatWidget.show(); // Opens the chatbot automatically
-                    window.$chatWidget.sendMessage("Feel free to ask any questions! 😊"); // Sends a welcome message
-                }
-            }, 3000); // Delay of 3 seconds
+                let tooltip = document.getElementById("chat-tooltip");
+                tooltip.style.display = "block"; // Show tooltip
+
+                // Hide tooltip after 5 seconds
+                setTimeout(function () {
+                    tooltip.style.display = "none";
+                }, 5000);
+            }, 2000); // Show tooltip 2 seconds after page loads
         });
     </script>
-    
+
 </body>
 </html>
